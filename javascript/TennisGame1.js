@@ -20,14 +20,9 @@ TennisGame1.prototype.getScore = function () {
     } else if (this.m_score1 >= 4 || this.m_score2 >= 4) {
         score = getAdvantageOrWinnerFor(this.m_score1, this.m_score2);
     } else {
-        for (var i = 1; i < 3; i++) {
-            if (i === 1) tempScore = this.m_score1;
-            else {
-                score += "-";
-                tempScore = this.m_score2;
-            }
-            score += getStringDisplayFor(tempScore);
-        }
+        score += getStringDisplayFor(this.m_score1);
+        score += "-";
+        score += getStringDisplayFor(this.m_score2);
     }
     return score;
 };
