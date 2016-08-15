@@ -4,7 +4,6 @@ var TennisGame1 = function (player1Name, player2Name) {
     this.player1Name = player1Name;
     this.player2Name = player2Name;
 };
-var scoreStringRepresentations = ["Love", "Fifteen", "Thirty", "Forty"];
 
 TennisGame1.prototype.wonPoint = function (playerName) {
     if (playerName === "player1")
@@ -25,11 +24,11 @@ TennisGame1.prototype.getScore = function () {
     return score;
 };
 
-var minimumPointsReached = function (m_score1, m_score2) {
+var minimumPointsReached = function(m_score1, m_score2) {
     return m_score1 >= 4 || m_score2 >= 4;
-}
+};
 
-var getAdvantageOrWinnerFor = function (m_score1, m_score2) {
+var getAdvantageOrWinnerFor = function(m_score1, m_score2) {
     var score = "";
     var pointDifference = m_score1 - m_score2;
     if (pointDifference === 1) score = "Advantage player1";
@@ -37,27 +36,28 @@ var getAdvantageOrWinnerFor = function (m_score1, m_score2) {
     else if (pointDifference >= 2) score = "Win for player1";
     else score = "Win for player2";
     return score;
-}
+};
 
-var getRunningScore = function (m_score1, m_score2) {
+var getRunningScore = function(m_score1, m_score2) {
     var score = "";
     score += getStringDisplayFor(m_score1);
     score += "-";
     score += getStringDisplayFor(m_score2);
     return score;
-}
+};
 
-var getEvenScoreString = function (m_score1) {
+var getEvenScoreString = function(m_score1) {
     if (m_score1 > 2) {
         return "Deuce";
     } else {
-        return scoreStringRepresentations[m_score1] + "-All";
+        return getStringDisplayFor(m_score1) + "-All";
     }
-}
+};
 
+var scoreStringRepresentations = ["Love", "Fifteen", "Thirty", "Forty"];
 var getStringDisplayFor = function (playerScore) {
     return scoreStringRepresentations[playerScore];
-}
+};
 
 if (typeof window === "undefined") {
     module.exports = TennisGame1;
