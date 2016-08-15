@@ -18,11 +18,7 @@ TennisGame1.prototype.getScore = function () {
     if (this.m_score1 === this.m_score2) {
         score = getEvenScoreString(this.m_score1);
     } else if (this.m_score1 >= 4 || this.m_score2 >= 4) {
-        var pointDifference = this.m_score1 - this.m_score2;
-        if (pointDifference === 1) score = "Advantage player1";
-        else if (pointDifference === -1) score = "Advantage player2";
-        else if (pointDifference >= 2) score = "Win for player1";
-        else score = "Win for player2";
+        score = getAdvantageOrWinnerFor(this.m_score1, this.m_score2);
     } else {
         for (var i = 1; i < 3; i++) {
             if (i === 1) tempScore = this.m_score1;
@@ -35,6 +31,16 @@ TennisGame1.prototype.getScore = function () {
     }
     return score;
 };
+
+var getAdvantageOrWinnerFor = function (m_score1, m_score2) {
+    var score = "";
+    var pointDifference = m_score1 - m_score2;
+    if (pointDifference === 1) score = "Advantage player1";
+    else if (pointDifference === -1) score = "Advantage player2";
+    else if (pointDifference >= 2) score = "Win for player1";
+    else score = "Win for player2";
+    return score;
+}
 
 var getEvenScoreString = function (m_score1) {
     var score = "";
@@ -73,6 +79,7 @@ var getStringDisplayFor = function (tempScore) {
     }
     return score;
 }
+
 if (typeof window === "undefined") {
     module.exports = TennisGame1;
 }
