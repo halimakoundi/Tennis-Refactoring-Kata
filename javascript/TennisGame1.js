@@ -20,12 +20,18 @@ TennisGame1.prototype.getScore = function () {
     } else if (this.m_score1 >= 4 || this.m_score2 >= 4) {
         score = getAdvantageOrWinnerFor(this.m_score1, this.m_score2);
     } else {
-        score += getStringDisplayFor(this.m_score1);
-        score += "-";
-        score += getStringDisplayFor(this.m_score2);
+        score = getRunningScore(this.m_score1, this.m_score2);
     }
     return score;
 };
+
+var getRunningScore = function (m_score1, m_score2) {
+    var score = "";
+    score += getStringDisplayFor(m_score1);
+    score += "-";
+    score += getStringDisplayFor(m_score2);
+    return score;
+}
 
 var getAdvantageOrWinnerFor = function (m_score1, m_score2) {
     var score = "";
