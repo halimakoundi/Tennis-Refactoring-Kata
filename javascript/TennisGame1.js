@@ -62,22 +62,7 @@ var getEvenScoreString = function (m_score1) {
 }
 var scoreStringRepresentation = ["Love", "Fifteen", "Thirty", "Forty"];
 var getStringDisplayFor = function (playerScore) {
-    var score = "";
-    switch (playerScore) {
-        case 0:
-            score = scoreStringRepresentation[playerScore];
-            break;
-        case 1:
-            score = scoreStringRepresentation[playerScore];
-            break;
-        case 2:
-            score = scoreStringRepresentation[playerScore];
-            break;
-        case 3:
-            score = scoreStringRepresentation[playerScore];
-            break;
-    }
-    return score;
+    return scoreStringRepresentation[playerScore];
 }
 var Enum = function (constantsList) {
     for (var i in constantsList) {
