@@ -14,7 +14,6 @@ TennisGame1.prototype.wonPoint = function (playerName) {
 
 TennisGame1.prototype.getScore = function () {
     var score = "";
-    var tempScore = 0;
     if (this.m_score1 === this.m_score2) {
         score = getEvenScoreString(this.m_score1);
     } else if (this.m_score1 >= 4 || this.m_score2 >= 4) {
@@ -25,14 +24,6 @@ TennisGame1.prototype.getScore = function () {
     return score;
 };
 
-var getRunningScore = function (m_score1, m_score2) {
-    var score = "";
-    score += getStringDisplayFor(m_score1);
-    score += "-";
-    score += getStringDisplayFor(m_score2);
-    return score;
-}
-
 var getAdvantageOrWinnerFor = function (m_score1, m_score2) {
     var score = "";
     var pointDifference = m_score1 - m_score2;
@@ -40,6 +31,14 @@ var getAdvantageOrWinnerFor = function (m_score1, m_score2) {
     else if (pointDifference === -1) score = "Advantage player2";
     else if (pointDifference >= 2) score = "Win for player1";
     else score = "Win for player2";
+    return score;
+}
+
+var getRunningScore = function (m_score1, m_score2) {
+    var score = "";
+    score += getStringDisplayFor(m_score1);
+    score += "-";
+    score += getStringDisplayFor(m_score2);
     return score;
 }
 
@@ -62,9 +61,9 @@ var getEvenScoreString = function (m_score1) {
     return score;
 }
 
-var getStringDisplayFor = function (tempScore) {
+var getStringDisplayFor = function (playrScore) {
     var score = "";
-    switch (tempScore) {
+    switch (playrScore) {
         case 0:
             score += "Love";
             break;
