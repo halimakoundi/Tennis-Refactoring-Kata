@@ -4,6 +4,7 @@ var TennisGame1 = function (player1Name, player2Name) {
     this.player1Name = player1Name;
     this.player2Name = player2Name;
 };
+var scoreStringRepresentations = ["Love", "Fifteen", "Thirty", "Forty"];
 
 TennisGame1.prototype.wonPoint = function (playerName) {
     if (playerName === "player1")
@@ -43,31 +44,15 @@ var getRunningScore = function (m_score1, m_score2) {
 }
 
 var getEvenScoreString = function (m_score1) {
-    var score = "";
-    switch (m_score1) {
-        case 0:
-            score = "Love-All";
-            break;
-        case 1:
-            score = "Fifteen-All";
-            break;
-        case 2:
-            score = "Thirty-All";
-            break;
-        default:
-            score = "Deuce";
-            break;
+    if (m_score1 > 2) {
+        return "Deuce";
+    } else {
+        return scoreStringRepresentations[m_score1] + "-All";
     }
-    return score;
 }
-var scoreStringRepresentation = ["Love", "Fifteen", "Thirty", "Forty"];
+
 var getStringDisplayFor = function (playerScore) {
-    return scoreStringRepresentation[playerScore];
-}
-var Enum = function (constantsList) {
-    for (var i in constantsList) {
-        this[constantsList[i]] = i;
-    }
+    return scoreStringRepresentations[playerScore];
 }
 
 if (typeof window === "undefined") {
