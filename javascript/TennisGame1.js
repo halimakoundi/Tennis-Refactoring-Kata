@@ -18,10 +18,10 @@ TennisGame1.prototype.getScore = function () {
     if (this.m_score1 === this.m_score2) {
         score = getEvenScoreString(this.m_score1);
     } else if (this.m_score1 >= 4 || this.m_score2 >= 4) {
-        var minusResult = this.m_score1 - this.m_score2;
-        if (minusResult === 1) score = "Advantage player1";
-        else if (minusResult === -1) score = "Advantage player2";
-        else if (minusResult >= 2) score = "Win for player1";
+        var pointDifference = this.m_score1 - this.m_score2;
+        if (pointDifference === 1) score = "Advantage player1";
+        else if (pointDifference === -1) score = "Advantage player2";
+        else if (pointDifference >= 2) score = "Win for player1";
         else score = "Win for player2";
     } else {
         for (var i = 1; i < 3; i++) {
