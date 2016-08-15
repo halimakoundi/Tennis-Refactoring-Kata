@@ -17,13 +17,17 @@ TennisGame1.prototype.getScore = function () {
     var score = "";
     if (this.m_score1 === this.m_score2) {
         score = getEvenScoreString(this.m_score1);
-    } else if (this.m_score1 >= 4 || this.m_score2 >= 4) {
+    } else if (minimumPointsReached(this.m_score1, this.m_score2)) {
         score = getAdvantageOrWinnerFor(this.m_score1, this.m_score2);
     } else {
         score = getRunningScore(this.m_score1, this.m_score2);
     }
     return score;
 };
+
+var minimumPointsReached = function (m_score1, m_score2) {
+    return m_score1 >= 4 || m_score2 >= 4;
+}
 
 var getAdvantageOrWinnerFor = function (m_score1, m_score2) {
     var score = "";
