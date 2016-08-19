@@ -13,23 +13,12 @@ TennisGame1.prototype.wonPoint = function (playerName) {
 };
 
 TennisGame1.prototype.getScore = function () {
-    var score = "";
-    if (this.m_score1 === this.m_score2) {
-        score = new EvenGame().getEvenScoreString(this.m_score1);
-    } else if (minimumPointsReached(this.m_score1, this.m_score2)) {
-        score = new AdvatageOrWinGame().getScoreAsString(this.m_score1, this.m_score2);
-    } else {
-        score = new GameInProgress().getScore(this.m_score1, this.m_score2);
-    }
-    return score;
-};
+    var game = new GameFactory(this.m_score1, this.m_score2);
 
-var minimumPointsReached = function (m_score1, m_score2) {
-    return m_score1 >= 4 || m_score2 >= 4;
+    return game.getScore(this.m_score1, this.m_score2);
 };
 
 var ScoreRepo = function () {
-
     var scoreStringRepresentations = ["Love", "Fifteen", "Thirty", "Forty"];
 
     this.getStringDisplayFor = function (score) {
@@ -37,8 +26,22 @@ var ScoreRepo = function () {
     };
 }
 
+var GameFactory = function (score1, score2) {
+    var minimumPointsReached = function (score1, score2) {
+        return score1 >= 4 || score2 >= 4;
+    };
+
+    if (score1 === score2) {
+        return new EvenGame();
+    } else if (minimumPointsReached(score1, score2)) {
+        return new AdvatageOrWinGame();
+    } else {
+        return new GameInProgress();
+    }
+}
+
 var EvenGame = function () {
-    this.getEvenScoreString = function (score) {
+    this.getScore = function (score) {
         if (score > 2) {
             return "Deuce";
         } else {
@@ -52,7 +55,7 @@ var AdvatageOrWinGame = function () {
         return pointDifference >= 2;
     }
 
-    this.getScoreAsString = function (score1, score2) {
+    this.getScore = function (score1, score2) {
         var score = "";
         var pointDifference = score1 - score2;
         if (pointDifference === 1) score = "Advantage player1";
