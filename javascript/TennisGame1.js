@@ -47,14 +47,6 @@ var getRunningScore = function(m_score1, m_score2) {
     return score;
 };
 
-var getEvenScoreString = function(m_score1) {
-    if (m_score1 > 2) {
-        return "Deuce";
-    } else {
-        return getStringDisplayFor(m_score1) + "-All";
-    }
-};
-
 var scoreStringRepresentations = ["Love", "Fifteen", "Thirty", "Forty"];
 var getStringDisplayFor = function (playerScore) {
     return scoreStringRepresentations[playerScore];
