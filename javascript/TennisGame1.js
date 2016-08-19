@@ -19,7 +19,7 @@ TennisGame1.prototype.getScore = function () {
     } else if (minimumPointsReached(this.m_score1, this.m_score2)) {
         score = new AdvatageOrWinGame().getScoreAsString(this.m_score1, this.m_score2);
     } else {
-        score = getRunningScore(this.m_score1, this.m_score2);
+        score = new GameInProgress().getScore(this.m_score1, this.m_score2);
     }
     return score;
 };
@@ -84,6 +84,22 @@ var AdvatageOrWinGame = function () {
         return score;
     }
 
+}
+
+var GameInProgress = function () {
+
+    this.getScore = function (score1, score2) {
+        var score = "";
+        score += getStringDisplayFor(score1);
+        score += "-";
+        score += getStringDisplayFor(score2);
+        return score;
+    }
+
+    var scoreStringRepresentations = ["Love", "Fifteen", "Thirty", "Forty"];
+    var getStringDisplayFor = function (playerScore) {
+        return scoreStringRepresentations[playerScore];
+    };
 }
 
 if (typeof window === "undefined") {
