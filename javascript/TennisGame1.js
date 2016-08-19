@@ -1,7 +1,6 @@
 var TennisGame1 = function (player1Name, player2Name) {
     this.m_score1 = 0;
     this.m_score2 = 0;
-    this.scores = new ScoresRepresentation();
     this.player1Name = player1Name;
     this.player2Name = player2Name;
 };
@@ -16,20 +15,20 @@ TennisGame1.prototype.wonPoint = function (playerName) {
 TennisGame1.prototype.getScore = function () {
     var score = "";
     if (this.m_score1 === this.m_score2) {
-        score = this.scores.getEvenScoreString(this.m_score1);
+        score = new EvenGame().getEvenScoreString(this.m_score1);
     } else if (minimumPointsReached(this.m_score1, this.m_score2)) {
-        score = getAdvantageOrWinnerFor(this.m_score1, this.m_score2);
+        score = new AdvatageOrWinGame().getScoreAsString(this.m_score1, this.m_score2);
     } else {
         score = getRunningScore(this.m_score1, this.m_score2);
     }
     return score;
 };
 
-var minimumPointsReached = function(m_score1, m_score2) {
+var minimumPointsReached = function (m_score1, m_score2) {
     return m_score1 >= 4 || m_score2 >= 4;
 };
 
-var getAdvantageOrWinnerFor = function(m_score1, m_score2) {
+var getAdvantageOrWinnerFor = function (m_score1, m_score2) {
     var score = "";
     var pointDifference = m_score1 - m_score2;
     if (pointDifference === 1) score = "Advantage player1";
@@ -39,7 +38,7 @@ var getAdvantageOrWinnerFor = function(m_score1, m_score2) {
     return score;
 };
 
-var getRunningScore = function(m_score1, m_score2) {
+var getRunningScore = function (m_score1, m_score2) {
     var score = "";
     score += getStringDisplayFor(m_score1);
     score += "-";
@@ -52,7 +51,7 @@ var getStringDisplayFor = function (playerScore) {
     return scoreStringRepresentations[playerScore];
 };
 
-var ScoresRepresentation = function () {
+var EvenGame = function () {
     this.getEvenScoreString = function (score) {
         if (score > 2) {
             return "Deuce";
@@ -60,10 +59,31 @@ var ScoresRepresentation = function () {
             return getStringDisplayFor(score) + "-All";
         }
     };
+
     var getStringDisplayFor = function (score) {
         return scoreStringRepresentations[score];
     };
     var scoreStringRepresentations = ["Love", "Fifteen", "Thirty", "Forty"];
+}
+
+var AdvatageOrWinGame = function () {
+    var minimumPointsDiffToWinReached = function (pointDifference) {
+        return pointDifference >= 2;
+    }
+
+    this.getScoreAsString = function (score1, score2) {
+        var score = "";
+        var pointDifference = score1 - score2;
+        if (pointDifference === 1) score = "Advantage player1";
+        else if (pointDifference === -1) {
+            score = "Advantage player2";
+        } else {
+            if (minimumPointsDiffToWinReached(pointDifference)) score = "Win for player1";
+            else score = "Win for player2";
+        }
+        return score;
+    }
+
 }
 
 if (typeof window === "undefined") {
