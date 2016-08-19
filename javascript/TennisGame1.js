@@ -42,14 +42,9 @@ var EvenGame = function () {
         if (score > 2) {
             return "Deuce";
         } else {
-            return getStringDisplayFor(score) + "-All";
+            return new ScoreRepo().getStringDisplayFor(score) + "-All";
         }
     };
-
-    var getStringDisplayFor = function (score) {
-        return scoreStringRepresentations[score];
-    };
-    var scoreStringRepresentations = ["Love", "Fifteen", "Thirty", "Forty"];
 }
 
 var AdvatageOrWinGame = function () {
