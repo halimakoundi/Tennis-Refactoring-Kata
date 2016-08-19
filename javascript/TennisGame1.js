@@ -28,10 +28,14 @@ var minimumPointsReached = function (m_score1, m_score2) {
     return m_score1 >= 4 || m_score2 >= 4;
 };
 
-var scoreStringRepresentations = ["Love", "Fifteen", "Thirty", "Forty"];
-var getStringDisplayFor = function (playerScore) {
-    return scoreStringRepresentations[playerScore];
-};
+var ScoreRepo = function () {
+
+    var scoreStringRepresentations = ["Love", "Fifteen", "Thirty", "Forty"];
+
+    this.getStringDisplayFor = function (score) {
+        return scoreStringRepresentations[score];
+    };
+}
 
 var EvenGame = function () {
     this.getEvenScoreString = function (score) {
@@ -72,16 +76,11 @@ var GameInProgress = function () {
 
     this.getScore = function (score1, score2) {
         var score = "";
-        score += getStringDisplayFor(score1);
+        score += new ScoreRepo().getStringDisplayFor(score1);
         score += "-";
-        score += getStringDisplayFor(score2);
+        score += new ScoreRepo().getStringDisplayFor(score2);
         return score;
     }
-
-    var scoreStringRepresentations = ["Love", "Fifteen", "Thirty", "Forty"];
-    var getStringDisplayFor = function (playerScore) {
-        return scoreStringRepresentations[playerScore];
-    };
 }
 
 if (typeof window === "undefined") {
