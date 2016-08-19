@@ -1,7 +1,7 @@
 var TennisGame1 = function (player1Name, player2Name) {
     this.m_score1 = 0;
     this.m_score2 = 0;
-    this.scores = new Scores(0, 0);
+    this.scores = new ScoresRepresentation();
     this.player1Name = player1Name;
     this.player2Name = player2Name;
 };
@@ -11,14 +11,12 @@ TennisGame1.prototype.wonPoint = function (playerName) {
         this.m_score1 += 1;
     else
         this.m_score2 += 1;
-
-    this.scores.registerPointFor(playerName);
 };
 
 TennisGame1.prototype.getScore = function () {
     var score = "";
     if (this.m_score1 === this.m_score2) {
-        score = getEvenScoreString(this.m_score1);
+        score = this.scores.getEvenScoreString(this.m_score1);
     } else if (minimumPointsReached(this.m_score1, this.m_score2)) {
         score = getAdvantageOrWinnerFor(this.m_score1, this.m_score2);
     } else {
@@ -62,16 +60,18 @@ var getStringDisplayFor = function (playerScore) {
     return scoreStringRepresentations[playerScore];
 };
 
-var Scores = function (score1, score2) {
-    this.score1 = score1;
-    this.score2 = score2;
-
-    this.registerPointFor = function (player) {
-        if (player === "player1")
-            this.score1 += 1;
-        else
-            this.score2 += 1;
-    }
+var ScoresRepresentation = function () {
+    this.getEvenScoreString = function (score) {
+        if (score > 2) {
+            return "Deuce";
+        } else {
+            return getStringDisplayFor(score) + "-All";
+        }
+    };
+    var getStringDisplayFor = function (score) {
+        return scoreStringRepresentations[score];
+    };
+    var scoreStringRepresentations = ["Love", "Fifteen", "Thirty", "Forty"];
 }
 
 if (typeof window === "undefined") {
